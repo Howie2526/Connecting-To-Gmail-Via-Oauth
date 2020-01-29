@@ -1,0 +1,27 @@
+<?php
+session_start();
+$ReqSer=$_SERVER['SERVER_NAME'];
+$ReqURL=$_SERVER['REQUEST_URI'];
+$ReqURL=$ReqSer.$ReqURL;
+$LocURL='localhost/contact-us/';
+$CanURL='cdunion.ca/contact-us/';
+if($ReqURL===$LocURL){
+	$BaseURL='http://localhost/';
+}elseif(($ReqURL===$CanURL)&&($_SERVER['HTTPS']='on')){
+	$BaseURL='https://cdunion.ca/';
+}else{
+	header('Location:https://'.$CanURL);
+	exit();
+}
+$root=$_SERVER['DOCUMENT_ROOT'].'/';
+ob_start();
+include('body.php');
+$body=ob_get_contents();
+ob_end_clean();
+$remove=array('/\t/','/\v/');
+$replace='';
+$body=preg_replace($remove,$replace,$body);
+echo($body);
+exit();
+?>
+<!-- Minimized -->
