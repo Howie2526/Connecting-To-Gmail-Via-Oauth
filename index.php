@@ -10,7 +10,7 @@ if($ReqURL===$LocURL){
 }elseif(($ReqURL===$CanURL)&&($_SERVER['HTTPS']='on')){
 	$BaseURL='https://cdunion.ca/';
 }else{
-	header('Location:https://'.$CanURL);
+	header("Location:https://{$CanURL}");
 	exit();
 }
 $root=$_SERVER['DOCUMENT_ROOT'].'/';
@@ -21,7 +21,7 @@ ob_end_clean();
 $remove=array('/\t/','/\v/');
 $replace='';
 $body=preg_replace($remove,$replace,$body);
-echo($body);
+echo"{$body}";
 exit();
 ?>
 <!-- Minimized -->
