@@ -22,18 +22,19 @@ if((isset($_POST['form-title']))&&(isset($_POST['middle-name']))&&(isset($_POST[
 	$array['email-address']=filter_var($array['email-address'],FILTER_SANITIZE_EMAIL);
 	$array['message']=filter_var($array['message'],FILTER_SANITIZE_STRING);
 	if((empty($array['first-name']))||(empty($array['last-name']))||(empty($array['message']))){
-		$body=$body.'<p>We have detected some unusual activity, Name or Message is not valid.</p>';
+		$body="{$body}<p>We have detected some unusual activity, Name or Message is not valid.</p>";
 	}
 	if(!filter_var($array['email-address'],FILTER_VALIDATE_EMAIL)){
-		$body=$body.'<p>We have detected some unusual activity, Email Address is not valid.</p>';
+		$body="{$body}<p>We have detected some unusual activity, Email Address is not valid.</p>";
 	}
 	if(!empty($body)){
-		$body=$body.'<p>Please make sure JavaScript is enabled and resubmit <a href="'.$BaseURL.'contact-us/">our contact form</a>.</p>';
+		$url='"'.$BaseURL.'contact-us/"';
+		$body="{$body}<p>Please make sure JavaScript is enabled and resubmit <a href={$url}>our contact form</a>.</p>";
 	}else{
 		if($ReqSer==='localhost'){
-			require 'C:\\xampp\composer\vendor\autoload.php';
+			require'C:\\xampp\composer\vendor\autoload.php';
 		}else{
-			require '/home2/cdunionc/php/composer/vendor/autoload.php';
+			require'/home2/cdunionc/php/composer/vendor/autoload.php';
 		}
 		date_default_timezone_set('Etc/UTC');
 		$google_email='Censored';
@@ -47,11 +48,11 @@ if((isset($_POST['form-title']))&&(isset($_POST['middle-name']))&&(isset($_POST[
 			$mail->isHTML(TRUE);
 			$mail->Subject='Contact Form';
 			$mail->Body=
-				'<p>Form Title: '.$array['form-title'].'</p>'.
-				'<p>First Name: '.$array['first-name'].'</p>'.
-				'<p>Last Name: '.$array['last-name'].'</p>'.
-				'<p>Email Address: '.$array['email-address'].'</p>'.
-				'<p>Message: '.$array['message'].'</p>';
+				"<p>Form Title: {$array['form-title']}</p>".
+				"<p>First Name: {$array['first-name']}</p>".
+				"<p>Last Name: {$array['last-name']}</p>".
+				"<p>Email Address: {$array['email-address']}</p>".
+				"<p>Message: {$array['message']}</p>";
 			$mail->isSMTP();
 			$mail->Port=587;
 			$mail->SMTPAuth=TRUE;
@@ -96,10 +97,10 @@ if((isset($_POST['form-title']))&&(isset($_POST['middle-name']))&&(isset($_POST[
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<meta name="robots" content="noindex,nofollow">
 		<title>Contact Us - The Canadian Disability Union</title>
-		<link rel="canonical" href="<?php echo($BaseURL); ?>contact-us/">
+		<link rel="canonical" href="<?=$BaseURL?>contact-us/">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap">
-		<link rel="stylesheet" href="<?php echo($BaseURL); ?>common/css.php?v=1.00">
-		<link rel="stylesheet" href="<?php echo($BaseURL); ?>common/menu.php?v=1.00">
+		<link rel="stylesheet" href="<?=$BaseURL?>common/css.php?v=1.00">
+		<link rel="stylesheet" href="<?=$BaseURL?>common/menu.php?v=1.00">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script async src="https://kit.fontawesome.com/bbe1b77f5f.js" crossorigin="anonymous"></script>
 		<script src="https://s3.amazonaws.com/menumaker/menumaker.min.js"></script>
@@ -114,9 +115,7 @@ if((isset($_POST['form-title']))&&(isset($_POST['middle-name']))&&(isset($_POST[
 			</header>
 			<main>
 				<h2>Contact Us</h2>
-				<?php
-				echo($body);
-				?>
+				<?=$body?>
 			</main>
 			<footer>
 			</footer>
