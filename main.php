@@ -1,5 +1,5 @@
 <p>If you have any general inquiries, please do not hesitate to contact us.</p>
-<form action="<?php echo($BaseURL); ?>contact-us/" method="post" name="form" onsubmit="validateForm();" style="max-width:600px;">
+<form action="<?=$BaseURL?>contact-us/" method="post" name="form" onsubmit="validateForm();" style="max-width:600px;">
 	<input class="form-title" name="form-title" value="Contact Us">
 	<input class="middle-name" id="middle-name" name="middle-name" placeholder="Middle Name" type="text">
 	<div style="display:inline-block;width:100%;">
